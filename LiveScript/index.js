@@ -13,7 +13,7 @@ function start()
     ctx.fillStyle = "#5c94fc";
     ctx.fillRect(0,0,canvas.width, canvas.height);
     //раскомментируйте код, если хотите посмотреть нарисованную сцену
-    _drawScene(ctx);
+    _drawScene(ctx); 
 }
 
 function _drawScene(ctx)
