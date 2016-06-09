@@ -16,6 +16,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 }
 body {
     line-height: 1;
+    position: relative;
 }
 ol, ul {
     list-style: none;
@@ -32,4 +33,12 @@ q:before, q:after {
 table {
     border-collapse: collapse;
     border-spacing: 0;
+}
+
+.block { 
+    background-image: url(../img/mario_div.gif);
+    position: absolute;
+    width: 32px; height: 32px;
+    left: 64px; top: 416px;
+    
 }
