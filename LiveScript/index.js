@@ -13,8 +13,37 @@ function start()
     ctx.fillStyle = "#5c94fc";
     ctx.fillRect(0,0,canvas.width, canvas.height);
     //раскомментируйте код, если хотите посмотреть нарисованную сцену
-    _drawScene(ctx); 
+    _drawScene(ctx);
 }
+
+$(document).ready(function() {
+    var left;
+    var top;
+    $(document).keydown(function(e) {
+        switch (e.keyCode) {
+            case 39: // вправо
+                left = $(".block").position().left;
+                if (left >= 0 && left < 1367)
+                    $(".block").animate({ "left": "+=32px" }, "fast" );
+                break;
+            case 37: // влево
+                left = $(".block").position().left;
+                if (left > 0 && left <= 1367)
+                    $(".block").animate({ "left": "-=32px" }, "fast" );
+                break;
+            case 40: // вниз
+                top = $(".block").position().top;
+                if (top >=0 && top < 768)
+                    $(".block").animate({ "top": "+=32px" }, "fast" );
+                break;
+            case 38: // вверх
+                top = $(".block").position().top;
+                if (top > 0 && top <= 768)
+                    $(".block").animate({ "top": "-=32px" }, "fast" );
+                break;
+        }
+    });
+});
 
 function _drawScene(ctx)
 {
@@ -23,7 +52,6 @@ function _drawScene(ctx)
     map = // Карта уровня двумерным массивом
     [
         [{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0}],    // 1ый ряд
-        
         
         [{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:8},{x:1,y:9},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:0},{x:1,y:8},{x:1,y:9},{x:1,y:0}],  // 2ый ряд
         
