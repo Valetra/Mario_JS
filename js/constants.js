@@ -1,9 +1,15 @@
 //Configuration
+FPS = 1000 / 60;
 CELL_SIZE = 32;
 CELLS_COUNT_X = 64;
 CELLS_COUNT_Y = 20;
 PATH_TO_SPRITE = 'img/Mario_Big_Sprite.gif';
 BACKGROUND_COLOR = '#5c94fc';
+THE_OFFSET_AXIS = 4; //Смещение по оси
+LEFT_ARROW = 37;
+TOP_ARROW = 38;
+RIGHT_ARROW = 39;
+DOWN_ARROW = 40;
 
 //Sprite cells
 NO_QUESTION_BLOCK = 1;
@@ -42,3 +48,4 @@ TUBE_2 = 31;
 TUBE_3 = 32;
 TUBE_4 = 33;
 GROUND = 34;
+MARIO = 37;

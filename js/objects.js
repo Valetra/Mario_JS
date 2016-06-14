@@ -23,11 +23,15 @@ function drawAllObjects() //rendering an object from bottom left corner, exept l
     bigCloud(2, 55);
 }
 
-function drawLineOf(Object, y, from, to)
+function drawLineOf(Object, y, from, to, collision)
 {
     for (from; from < to; from++)
     {
         map[y][from].y = Object;
+        if (collision = true)
+        {
+            map[y][from].coll = 1;
+        }
     }
 }
 
@@ -35,7 +39,7 @@ function drawGround(i)
 {
     for (i; i <= CELLS_COUNT_Y; i++)
     {
-        drawLineOf(GROUND, i, 0, CELLS_COUNT_X);
+        drawLineOf(GROUND, i, 0, CELLS_COUNT_X, true);
     }
 }
 
@@ -99,6 +103,10 @@ function tube(y, x)
     map[y - 1][x + 1].y = TUBE_2;
     map[y][x].y = TUBE_3;
     map[y][x + 1].y = TUBE_4;
+    map[y - 1][x].coll = 1;
+    map[y - 1][x + 1].coll = 1;
+    map[y][x].coll = 1;
+    map[y][x + 1].coll = 1;
 }
 
 function bigTube(y, x)
@@ -109,29 +117,39 @@ function bigTube(y, x)
     map[y - 1][x + 1].y = TUBE_4;
     map[y][x].y = TUBE_3;
     map[y][x + 1].y = TUBE_4;
+    map[y - 2][x].coll = 1;
+    map[y - 2][x + 1].coll = 1;
+    map[y - 1][x].coll = 1;
+    map[y - 1][x + 1].coll = 1;
+    map[y][x].coll = 1;
+    map[y][x + 1].coll = 1;
 }
 
 function noQuestionBlock(y, x)
 {
     map[y][x].y = NO_QUESTION_BLOCK;
+    map[y][x].coll = 1;
 }
 
 function coin(y, x)
 {
-     map[y][x].y = COIN;
+    map[y][x].y = COIN;
 }
 
 function brick(y, x)
 {
     map[y][x].y = BRICK;
+    map[y][x].coll = 1;
 }
 
 function cube(y, x)
 {
-     map[y][x].y = CUBE;
+    map[y][x].y = CUBE;
+    map[y][x].coll = 1;
 }
 
 function questionBlock(y, x)
 {
-     map[y][x].y = QUESTION_BLOCK;
+    map[y][x].y = QUESTION_BLOCK;
+    map[y][x].coll = 1;
 }
