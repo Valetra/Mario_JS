@@ -1,28 +1,353 @@
-function drawAllObjects() //rendering an object from bottom left corner, exept lines of object
+function drawAllObjects()
 {
-    drawGround(14);
-    antHill(13, 2);
-    tree(13, 7);
-    bigBush(13, 14);
-    questionBlock(10, 17);
-    antHill(13, 18);
-    brick(10, 20);
-    questionBlock(10, 21);
-    brick(10, 22);
-    questionBlock(10, 23);
-    brick(10, 24);
-    questionBlock(7, 22);
-    smallCloud(3, 18);
-    bigCloud(4, 30);
-    smallBush(13, 25);
-    tube(13, 34);
-    bigBush(13, 40);
-    bigTube(13, 46);
-    poisonousPlant(10, 46);
-    smallCloud(4, 43);
-    bigCloud(2, 55);
+    drawAntHill(12, 19);
+    drawTree(12, 5);
+    drawPoisonousPlant(9, 27);
+    drawPoisonousPlant(11, 45);
+    drawbigTube(12, 27);
+    drawBigBush(12, 9);
+    drawSmallBush(12, 36);
+    drawSmallBush(12, 42);
+    drawbigCloud(4, 12);
+    drawsmallCloud(3, 24);
+    drawbigCloud(2, 32);
+    drawbigCloud(5, 46);
+    drawtube(12, 45);
+    drawBrick(9, 17);
+    drawBrick(9, 19);
+    drawQuestionBlock(9, 13);
+    drawQuestionBlock(9, 16);
+    drawQuestionBlock(9, 18);
+    drawQuestionBlock(9, 20);
+    drawQuestionBlock(6, 18);
 }
 
+function drawGround(ctx)
+{
+    var i = 0;
+    var j = 13;
+    for (j; j < CELLS_COUNT_Y; j++)
+    {
+        for (i; i < CELLS_COUNT_X; i++)
+        {
+            map.push({x: i, y: j, type: GROUND, coll: 1});
+        }
+        i = 0;
+    }
+}
+
+function getImagePlaceOnSprite(type)
+{
+    var placeAtSpriteByVertical = 0;
+    switch (type)
+    {
+        case COIN:
+        {
+            placeAtSpriteByVertical = (COIN - 1) * CELL_SIZE;
+            break;
+        }
+        case BRICK:
+        {
+            placeAtSpriteByVertical = (BRICK - 1) * CELL_SIZE;
+            break;
+        }
+        case NO_QUESTION_BLOCK:
+        {
+            placeAtSpriteByVertical = (NO_QUESTION_BLOCK - 1) * CELL_SIZE;
+            break;
+        }
+        case CUBE:
+        {
+            placeAtSpriteByVertical = (CUBE - 1) * CELL_SIZE;
+            break;
+        }
+        case GROUND:
+        {
+            placeAtSpriteByVertical = (GROUND - 1) * CELL_SIZE;
+            break;
+        }
+        case MARIO:
+        {
+            placeAtSpriteByVertical = (MARIO - 1) * CELL_SIZE;
+            break;
+        }
+        case ANTHILL_1:
+        {
+            placeAtSpriteByVertical = (ANTHILL_1 - 1) * CELL_SIZE;
+            break;
+        }
+        case ANTHILL_2:
+        {
+            placeAtSpriteByVertical = (ANTHILL_2 - 1) * CELL_SIZE;
+            break;
+        }
+        case ANTHILL_3:
+        {
+            placeAtSpriteByVertical = (ANTHILL_3 - 1) * CELL_SIZE;
+            break;
+        }
+        case ANTHILL_4:
+        {
+            placeAtSpriteByVertical = (ANTHILL_4 - 1) * CELL_SIZE;
+            break;
+        }
+        case TREE_1:
+        {
+            placeAtSpriteByVertical = (TREE_1 - 1) * CELL_SIZE;
+            break;
+        }
+        case TREE_2:
+        {
+            placeAtSpriteByVertical = (TREE_2 - 1) * CELL_SIZE;
+            break;
+        }
+        case TREE_3:
+        {
+            placeAtSpriteByVertical = (TREE_3 - 1) * CELL_SIZE;
+            break;
+        }
+        case POISONOUS_PLANT_1:
+        {
+            placeAtSpriteByVertical = (POISONOUS_PLANT_1 - 1) * CELL_SIZE;
+            break;
+        }
+        case POISONOUS_PLANT_2:
+        {
+            placeAtSpriteByVertical = (POISONOUS_PLANT_2 - 1) * CELL_SIZE;
+            break;
+        }
+        case POISONOUS_PLANT_3:
+        {
+            placeAtSpriteByVertical = (POISONOUS_PLANT_3 - 1) * CELL_SIZE;
+            break;
+        }
+        case POISONOUS_PLANT_4:
+        {
+            placeAtSpriteByVertical = (POISONOUS_PLANT_4 - 1) * CELL_SIZE;
+            break;
+        }
+        case BIG_BUSH_1:
+        {
+            placeAtSpriteByVertical = (BIG_BUSH_1 - 1) * CELL_SIZE;
+            break;
+        }
+        case BIG_BUSH_2:
+        {
+            placeAtSpriteByVertical = (BIG_BUSH_2 - 1) * CELL_SIZE;
+            break;
+        }
+        case BIG_BUSH_3:
+        {
+            placeAtSpriteByVertical = (BIG_BUSH_3 - 1) * CELL_SIZE;
+            break;
+        }
+        case SMALL_BUSH_1:
+        {
+            placeAtSpriteByVertical = (SMALL_BUSH_1 - 1) * CELL_SIZE;
+            break;
+        }
+        case SMALL_BUSH_2:
+        {
+            placeAtSpriteByVertical = (SMALL_BUSH_2 - 1) * CELL_SIZE;
+            break;
+        }
+        case BIG_CLOUD_1:
+        {
+            placeAtSpriteByVertical = (BIG_CLOUD_1 - 1) * CELL_SIZE;
+            break;
+        }
+        case BIG_CLOUD_2:
+        {
+            placeAtSpriteByVertical = (BIG_CLOUD_2 - 1) * CELL_SIZE;
+            break;
+        }
+        case BIG_CLOUD_3:
+        {
+            placeAtSpriteByVertical = (BIG_CLOUD_3 - 1) * CELL_SIZE;
+            break;
+        }
+        case BIG_CLOUD_4:
+        {
+            placeAtSpriteByVertical = (BIG_CLOUD_4 - 1) * CELL_SIZE;
+            break;
+        }
+        case BIG_CLOUD_5:
+        {
+            placeAtSpriteByVertical = (BIG_CLOUD_5 - 1) * CELL_SIZE;
+            break;
+        }
+        case BIG_CLOUD_6:
+        {
+            placeAtSpriteByVertical = (BIG_CLOUD_6 - 1) * CELL_SIZE;
+            break;
+        }
+        case SMALL_CLOUD_1:
+        {
+            placeAtSpriteByVertical = (SMALL_CLOUD_1 - 1) * CELL_SIZE;
+            break;
+        }
+        case SMALL_CLOUD_2:
+        {
+            placeAtSpriteByVertical = (SMALL_CLOUD_2 - 1) * CELL_SIZE;
+            break;
+        }
+        case SMALL_CLOUD_3:
+        {
+            placeAtSpriteByVertical = (SMALL_CLOUD_3 - 1) * CELL_SIZE;
+            break;
+        }
+        case SMALL_CLOUD_4:
+        {
+            placeAtSpriteByVertical = (SMALL_CLOUD_4 - 1) * CELL_SIZE;
+            break;
+        }
+        case TUBE_1:
+        {
+            placeAtSpriteByVertical = (TUBE_1 - 1) * CELL_SIZE;
+            break;
+        }
+        case TUBE_2:
+        {
+            placeAtSpriteByVertical = (TUBE_2 - 1) * CELL_SIZE;
+            break;
+        }
+        case TUBE_3:
+        {
+            placeAtSpriteByVertical = (TUBE_3 - 1) * CELL_SIZE;
+            break;
+        }
+        case TUBE_4:
+        {
+            placeAtSpriteByVertical = (TUBE_4 - 1) * CELL_SIZE;
+            break;
+        }
+        case NO_QUESTION_BLOCK:
+        {
+            placeAtSpriteByVertical = (NO_QUESTION_BLOCK - 1) * CELL_SIZE;
+            break;
+        }
+        case COIN:
+        {
+            placeAtSpriteByVertical = (COIN - 1) * CELL_SIZE;
+            break;
+        }
+        case BRICK:
+        {
+            placeAtSpriteByVertical = (BRICK - 1) * CELL_SIZE;
+            break;
+        }
+        case CUBE:
+        {
+            placeAtSpriteByVertical = (CUBE - 1) * CELL_SIZE;
+            break;
+        }
+        case QUESTION_BLOCK:
+        {
+            placeAtSpriteByVertical = (QUESTION_BLOCK - 1) * CELL_SIZE;
+            break;
+        }
+    }
+    return placeAtSpriteByVertical;
+}
+
+function drawAntHill(j, i)
+{
+    map.push({x: i, y: j, type: ANTHILL_1});
+    map.push({x: i + 1, y: j, type: ANTHILL_2});
+    map.push({x: i + 2, y: j, type: ANTHILL_3});
+    map.push({x: i + 1, y: j - 1, type: ANTHILL_4});
+}
+
+function drawTree(j, i)
+{
+    map.push({x: i, y: j, type: TREE_1});
+    map.push({x: i, y: j - 1, type: TREE_2});
+    map.push({x: i, y: j - 2, type: TREE_3});
+}
+
+function drawPoisonousPlant(j, i)
+{
+    map.push({x: i, y: j, type: POISONOUS_PLANT_1});
+    map.push({x: i + 1, y: j, type: POISONOUS_PLANT_2});
+    map.push({x: i, y: j - 1, type: POISONOUS_PLANT_3});
+    map.push({x: i + 1, y: j - 1, type: POISONOUS_PLANT_4});
+}
+
+function drawBigBush(j, i)
+{
+    map.push({x: i, y: j, type: BIG_BUSH_1});
+    map.push({x: i + 1, y: j, type: BIG_BUSH_2});
+    map.push({x: i + 2, y: j, type: BIG_BUSH_3});
+}
+
+function drawSmallBush(j, i)
+{
+    map.push({x: i, y: j, type: SMALL_BUSH_1});
+    map.push({x: i + 1, y: j, type: SMALL_BUSH_2});
+}
+
+function drawbigCloud(j, i)
+{
+    map.push({x: i, y: j - 1, type: BIG_CLOUD_1});
+    map.push({x: i + 1, y: j - 1, type: BIG_CLOUD_2});
+    map.push({x: i + 2, y: j - 1, type: BIG_CLOUD_3});
+    map.push({x: i, y: j, type: BIG_CLOUD_4});
+    map.push({x: i + 1, y: j, type: BIG_CLOUD_5});
+    map.push({x: i + 2, y: j, type: BIG_CLOUD_6});
+}
+
+function drawsmallCloud(j, i)
+{
+    map.push({x: i, y: j - 1, type: SMALL_CLOUD_1});
+    map.push({x: i + 1, y: j - 1, type: SMALL_CLOUD_2});
+    map.push({x: i, y: j, type: SMALL_CLOUD_3});
+    map.push({x: i + 1, y: j, type: SMALL_CLOUD_4});
+}
+
+function drawtube(j, i)
+{
+    map.push({x: i, y: j - 1, type: TUBE_1, coll: 1});
+    map.push({x: i + 1, y: j - 1, type: TUBE_2, coll: 1});
+    map.push({x: i, y: j, type: TUBE_3, coll: 1});
+    map.push({x: i + 1, y: j, type: TUBE_4, coll: 1});
+}
+
+function drawbigTube(j, i)
+{
+    map.push({x: i, y: j - 2, type: TUBE_1, coll: 1});
+    map.push({x: i + 1, y: j - 2, type: TUBE_2, coll: 1});
+    map.push({x: i, y: j - 1, type: TUBE_3, coll: 1});
+    map.push({x: i + 1, y: j - 1, type: TUBE_4, coll: 1});
+    map.push({x: i, y: j, type: TUBE_3, coll: 1});
+    map.push({x: i + 1, y: j, type: TUBE_4, coll: 1});
+}
+
+function drawNoQuestionBlok(j, i)
+{
+    map.push({x: i, y: j, type: NO_QUESTION_BLOCK, coll: 1});
+}
+
+function drawCoin(j, i)
+{
+    map.push({x: i, y: j, type: COIN});
+}
+
+function drawBrick(j, i)
+{
+    map.push({x: i, y: j, type: BRICK});
+}
+
+function drawCube(j, i)
+{
+    map.push({x: i, y: j, type: CUBE});
+}
+
+function drawQuestionBlock(j, i)
+{
+    map.push({x: i, y: j, type: QUESTION_BLOCK});
+}
+
+/*
 function drawLineOf(Object, y, from, to, collision)
 {
     for (from; from < to; from++)
@@ -34,122 +359,4 @@ function drawLineOf(Object, y, from, to, collision)
         }
     }
 }
-
-function drawGround(i)
-{
-    for (i; i <= CELLS_COUNT_Y; i++)
-    {
-        drawLineOf(GROUND, i, 0, CELLS_COUNT_X, true);
-    }
-}
-
-function tree(y, x)
-{
-    map[y][x].y = TREE_1;
-    map[y - 1][x].y = TREE_2;
-    map[y - 2][x].y = TREE_3;
-}
-
-function poisonousPlant(y, x)
-{
-    map[y][x].y = POISONOUS_PLANT_1;
-    map[y][x + 1].y = POISONOUS_PLANT_2;
-    map[y - 1][x].y = POISONOUS_PLANT_3;
-    map[y -1][x + 1].y = POISONOUS_PLANT_4;
-}
-
-function bigBush(y, x)
-{
-    map[y][x].y = BIG_BUSH_1;
-    map[y][x + 1].y = BIG_BUSH_2;
-    map[y][x + 2].y = BIG_BUSH_3;
-}
-
-function smallBush(y, x)
-{
-    map[y][x].y = SMALL_BUSH_1;
-    map[y][x + 1].y = SMALL_BUSH_2;
-}
-
-function bigCloud(y, x)
-{
-    map[y - 1][x].y = BIG_CLOUD_1;
-    map[y - 1][x + 1].y = BIG_CLOUD_2;
-    map[y - 1][x + 2].y = BIG_CLOUD_3;
-    map[y][x].y = BIG_CLOUD_4;
-    map[y][x + 1].y = BIG_CLOUD_5;
-    map[y][x + 2].y = BIG_CLOUD_6;
-}
-
-function smallCloud(y, x)
-{
-    map[y - 1][x].y = SMALL_CLOUD_1;
-    map[y - 1][x + 1].y = SMALL_CLOUD_2;
-    map[y][x].y = SMALL_CLOUD_3;
-    map[y][x + 1].y = SMALL_CLOUD_4;
-}
-
-function antHill(y, x)
-{
-    map[y][x].y = ANTHILL_1;
-    map[y][x + 1].y = ANTHILL_2;
-    map[y][x + 2].y = ANTHILL_3;
-    map[y - 1][x + 1].y = ANTHILL_4;
-}
-
-function tube(y, x)
-{
-    map[y - 1][x].y = TUBE_1;
-    map[y - 1][x + 1].y = TUBE_2;
-    map[y][x].y = TUBE_3;
-    map[y][x + 1].y = TUBE_4;
-    map[y - 1][x].coll = 1;
-    map[y - 1][x + 1].coll = 1;
-    map[y][x].coll = 1;
-    map[y][x + 1].coll = 1;
-}
-
-function bigTube(y, x)
-{
-    map[y - 2][x].y = TUBE_1;
-    map[y - 2][x + 1].y = TUBE_2;
-    map[y - 1][x].y = TUBE_3;
-    map[y - 1][x + 1].y = TUBE_4;
-    map[y][x].y = TUBE_3;
-    map[y][x + 1].y = TUBE_4;
-    map[y - 2][x].coll = 1;
-    map[y - 2][x + 1].coll = 1;
-    map[y - 1][x].coll = 1;
-    map[y - 1][x + 1].coll = 1;
-    map[y][x].coll = 1;
-    map[y][x + 1].coll = 1;
-}
-
-function noQuestionBlock(y, x)
-{
-    map[y][x].y = NO_QUESTION_BLOCK;
-    map[y][x].coll = 1;
-}
-
-function coin(y, x)
-{
-    map[y][x].y = COIN;
-}
-
-function brick(y, x)
-{
-    map[y][x].y = BRICK;
-    map[y][x].coll = 1;
-}
-
-function cube(y, x)
-{
-    map[y][x].y = CUBE;
-    map[y][x].coll = 1;
-}
-
-function questionBlock(y, x)
-{
-    map[y][x].y = QUESTION_BLOCK;
-    map[y][x].coll = 1;
-}
+*/
