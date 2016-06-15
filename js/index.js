@@ -4,10 +4,23 @@ function start()
     ctx = canvas.getContext('2d');
     canvas.width  = CELLS_COUNT_X * CELL_SIZE;
     canvas.height = CELLS_COUNT_Y * CELL_SIZE;
-    var x = 190; // good position
-    var y = 384; // good position
+    var x = START_POSITION_OF_MARIO_X;
+    var y = START_POSITION_OF_MARIO_Y;
+    var dt = 0;
+    var lastTime;
     
-    function player(ctx, x, y)
+    function drawGame() //game loop
+    {
+        var now = Date.now();
+        dt = (now - lastTime) / CONVERT_TO_SEC;
+        drawBackGround(ctx);
+        drawScene(ctx);
+        player(ctx);
+        lastTime = now;
+        window.requestAnimationFrame(drawGame);
+    }
+    
+    function player(ctx)
     {
         ctx.drawImage
             (
@@ -23,40 +36,53 @@ function start()
             );
     }
     
-    function drawGame() //game loop
-    {
-        drawBackGround(ctx);
-        drawScene(ctx);
-        player(ctx, x, y);
-        window.requestAnimationFrame(drawGame);
-    }
-    
-    window.addEventListener('keydown', keyDown);
-    
-    pic = new Image();
-    pic.src = PATH_TO_SPRITE;
-    
-    drawGame();
-    
     function keyDown(event)
     {
-        ctx.fillStyle = BACKGROUND_COLOR;
-        e = event;
+        var last_x = x;
+        var last_y = y;
+        var e = event;
         if(e.keyCode == LEFT_ARROW)
         {
-            x -= THE_OFFSET_AXIS;
+            x -= MARIO_OFFSET * dt;
         }
         if(e.keyCode == TOP_ARROW)
         {
-            y -= THE_OFFSET_AXIS;
+            y -= MARIO_OFFSET * dt;
         }
         if(e.keyCode == RIGHT_ARROW)
         {
-            x += THE_OFFSET_AXIS;
+            x += MARIO_OFFSET * dt;
         }
         if(e.keyCode == DOWN_ARROW)
         {
-            y += THE_OFFSET_AXIS;
+            y += MARIO_OFFSET * dt;
+        }
+        //Collision
+        if (y > GROUND_LINE)
+        {
+            y = last_y;
+        }
+        if (x < 0)
+        {
+            x = last_x;
+        }
+        for (var i = 0; i < coll_map.length; i ++)
+        {
+            if (isCollide(i))
+            {
+                x = last_x;
+                y = last_y;
+            }
         }
     }
+    
+    function isCollide(i)
+    {
+        return !(((y + CELL_SIZE) < (coll_map[i].y)) || (y > (coll_map[i].y + CELL_SIZE)) || ((x + CELL_SIZE) < coll_map[i].x) || (x > (coll_map[i].x + CELL_SIZE)));
+    }
+    
+    window.addEventListener('keydown', keyDown);
+    pic = new Image();
+    pic.src = PATH_TO_SPRITE;
+    drawGame();
 }

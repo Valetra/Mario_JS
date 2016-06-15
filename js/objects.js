@@ -30,7 +30,7 @@ function drawGround(ctx)
     {
         for (i; i < CELLS_COUNT_X; i++)
         {
-            map.push({x: i, y: j, type: GROUND, coll: 1});
+            map.push({x: i * CELL_SIZE, y: j * CELL_SIZE, type: GROUND});
         }
         i = 0;
     }
@@ -252,99 +252,99 @@ function getImagePlaceOnSprite(type)
 
 function drawAntHill(j, i)
 {
-    map.push({x: i, y: j, type: ANTHILL_1});
-    map.push({x: i + 1, y: j, type: ANTHILL_2});
-    map.push({x: i + 2, y: j, type: ANTHILL_3});
-    map.push({x: i + 1, y: j - 1, type: ANTHILL_4});
+    map.push({x: i * CELL_SIZE, y: j * CELL_SIZE, type: ANTHILL_1});
+    map.push({x: (i + 1) * CELL_SIZE, y: j * CELL_SIZE, type: ANTHILL_2});
+    map.push({x: (i + 2) * CELL_SIZE, y: j * CELL_SIZE, type: ANTHILL_3});
+    map.push({x: (i + 1) * CELL_SIZE, y: (j - 1) * CELL_SIZE, type: ANTHILL_4});
 }
 
 function drawTree(j, i)
 {
-    map.push({x: i, y: j, type: TREE_1});
-    map.push({x: i, y: j - 1, type: TREE_2});
-    map.push({x: i, y: j - 2, type: TREE_3});
+    map.push({x: i * CELL_SIZE, y: j * CELL_SIZE, type: TREE_1});
+    map.push({x: i * CELL_SIZE, y: (j - 1) * CELL_SIZE, type: TREE_2});
+    map.push({x: i * CELL_SIZE, y: (j - 2) * CELL_SIZE, type: TREE_3});
 }
 
 function drawPoisonousPlant(j, i)
 {
-    map.push({x: i, y: j, type: POISONOUS_PLANT_1});
-    map.push({x: i + 1, y: j, type: POISONOUS_PLANT_2});
-    map.push({x: i, y: j - 1, type: POISONOUS_PLANT_3});
-    map.push({x: i + 1, y: j - 1, type: POISONOUS_PLANT_4});
+    map.push({x: i * CELL_SIZE, y: j * CELL_SIZE, type: POISONOUS_PLANT_1, coll: 1});
+    map.push({x: (i + 1) * CELL_SIZE, y: j * CELL_SIZE, type: POISONOUS_PLANT_2, coll: 1});
+    map.push({x: i * CELL_SIZE, y: (j - 1) * CELL_SIZE, type: POISONOUS_PLANT_3, coll: 1});
+    map.push({x: (i + 1) * CELL_SIZE, y: (j - 1) * CELL_SIZE, type: POISONOUS_PLANT_4, coll: 1});
 }
 
 function drawBigBush(j, i)
 {
-    map.push({x: i, y: j, type: BIG_BUSH_1});
-    map.push({x: i + 1, y: j, type: BIG_BUSH_2});
-    map.push({x: i + 2, y: j, type: BIG_BUSH_3});
+    map.push({x: i * CELL_SIZE, y: j * CELL_SIZE, type: BIG_BUSH_1});
+    map.push({x: (i + 1) * CELL_SIZE, y: j * CELL_SIZE, type: BIG_BUSH_2});
+    map.push({x: (i + 2) * CELL_SIZE, y: j * CELL_SIZE, type: BIG_BUSH_3});
 }
 
 function drawSmallBush(j, i)
 {
-    map.push({x: i, y: j, type: SMALL_BUSH_1});
-    map.push({x: i + 1, y: j, type: SMALL_BUSH_2});
+    map.push({x: i * CELL_SIZE, y: j * CELL_SIZE, type: SMALL_BUSH_1});
+    map.push({x: (i + 1) * CELL_SIZE, y: j * CELL_SIZE, type: SMALL_BUSH_2});
 }
 
 function drawbigCloud(j, i)
 {
-    map.push({x: i, y: j - 1, type: BIG_CLOUD_1});
-    map.push({x: i + 1, y: j - 1, type: BIG_CLOUD_2});
-    map.push({x: i + 2, y: j - 1, type: BIG_CLOUD_3});
-    map.push({x: i, y: j, type: BIG_CLOUD_4});
-    map.push({x: i + 1, y: j, type: BIG_CLOUD_5});
-    map.push({x: i + 2, y: j, type: BIG_CLOUD_6});
+    map.push({x: i * CELL_SIZE, y: (j - 1) * CELL_SIZE, type: BIG_CLOUD_1});
+    map.push({x: (i + 1) * CELL_SIZE, y: (j - 1) * CELL_SIZE, type: BIG_CLOUD_2});
+    map.push({x: (i + 2) * CELL_SIZE, y: (j - 1) * CELL_SIZE, type: BIG_CLOUD_3});
+    map.push({x: i * CELL_SIZE, y: j * CELL_SIZE, type: BIG_CLOUD_4});
+    map.push({x: (i + 1) * CELL_SIZE, y: j * CELL_SIZE, type: BIG_CLOUD_5});
+    map.push({x: (i + 2) * CELL_SIZE, y: j * CELL_SIZE, type: BIG_CLOUD_6});
 }
 
 function drawsmallCloud(j, i)
 {
-    map.push({x: i, y: j - 1, type: SMALL_CLOUD_1});
-    map.push({x: i + 1, y: j - 1, type: SMALL_CLOUD_2});
-    map.push({x: i, y: j, type: SMALL_CLOUD_3});
-    map.push({x: i + 1, y: j, type: SMALL_CLOUD_4});
+    map.push({x: i * CELL_SIZE, y: (j - 1) * CELL_SIZE, type: SMALL_CLOUD_1});
+    map.push({x: (i + 1) * CELL_SIZE, y: (j - 1) * CELL_SIZE, type: SMALL_CLOUD_2});
+    map.push({x: i * CELL_SIZE, y: j * CELL_SIZE, type: SMALL_CLOUD_3});
+    map.push({x: (i + 1) * CELL_SIZE, y: j * CELL_SIZE, type: SMALL_CLOUD_4});
 }
 
 function drawtube(j, i)
 {
-    map.push({x: i, y: j - 1, type: TUBE_1, coll: 1});
-    map.push({x: i + 1, y: j - 1, type: TUBE_2, coll: 1});
-    map.push({x: i, y: j, type: TUBE_3, coll: 1});
-    map.push({x: i + 1, y: j, type: TUBE_4, coll: 1});
+    map.push({x: i * CELL_SIZE, y: (j - 1) * CELL_SIZE, type: TUBE_1, coll: 1});
+    map.push({x: (i + 1) * CELL_SIZE, y: (j - 1) * CELL_SIZE, type: TUBE_2, coll: 1});
+    map.push({x: i * CELL_SIZE, y: j * CELL_SIZE, type: TUBE_3, coll: 1});
+    map.push({x: (i + 1) * CELL_SIZE, y: j * CELL_SIZE, type: TUBE_4, coll: 1});
 }
 
 function drawbigTube(j, i)
 {
-    map.push({x: i, y: j - 2, type: TUBE_1, coll: 1});
-    map.push({x: i + 1, y: j - 2, type: TUBE_2, coll: 1});
-    map.push({x: i, y: j - 1, type: TUBE_3, coll: 1});
-    map.push({x: i + 1, y: j - 1, type: TUBE_4, coll: 1});
-    map.push({x: i, y: j, type: TUBE_3, coll: 1});
-    map.push({x: i + 1, y: j, type: TUBE_4, coll: 1});
+    map.push({x: i * CELL_SIZE, y: (j - 2) * CELL_SIZE, type: TUBE_1, coll: 1});
+    map.push({x: (i + 1) * CELL_SIZE, y: (j - 2) * CELL_SIZE, type: TUBE_2, coll: 1});
+    map.push({x: i * CELL_SIZE, y: (j - 1) * CELL_SIZE, type: TUBE_3, coll: 1});
+    map.push({x: (i + 1) * CELL_SIZE, y: (j - 1) * CELL_SIZE, type: TUBE_4, coll: 1});
+    map.push({x: i * CELL_SIZE, y: j * CELL_SIZE, type: TUBE_3, coll: 1});
+    map.push({x: (i + 1) * CELL_SIZE, y: j * CELL_SIZE, type: TUBE_4, coll: 1});
 }
 
 function drawNoQuestionBlok(j, i)
 {
-    map.push({x: i, y: j, type: NO_QUESTION_BLOCK, coll: 1});
+    map.push({x: i * CELL_SIZE, y: j * CELL_SIZE, type: NO_QUESTION_BLOCK, coll: 1});
 }
 
 function drawCoin(j, i)
 {
-    map.push({x: i, y: j, type: COIN});
+    map.push({x: i * CELL_SIZE, y: j * CELL_SIZE, type: COIN});
 }
 
 function drawBrick(j, i)
 {
-    map.push({x: i, y: j, type: BRICK});
+    map.push({x: i * CELL_SIZE, y: j * CELL_SIZE, type: BRICK, coll: 1});
 }
 
 function drawCube(j, i)
 {
-    map.push({x: i, y: j, type: CUBE});
+    map.push({x: i * CELL_SIZE, y: j * CELL_SIZE, type: CUBE, coll: 1});
 }
 
 function drawQuestionBlock(j, i)
 {
-    map.push({x: i, y: j, type: QUESTION_BLOCK});
+    map.push({x: i * CELL_SIZE, y: j * CELL_SIZE, type: QUESTION_BLOCK, coll: 1});
 }
 
 /*

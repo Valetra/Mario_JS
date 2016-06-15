@@ -4,36 +4,46 @@ function drawBackGround(ctx)
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
-function drawScene(ctx)
+function getCollObjects()
 {
-    map = []; // (x and y) are coordinates of cells
-    drawGround(ctx);
-    drawAllObjects(ctx);
-    //pic.onload = function()
+    for(var i = 0; i < map.length; i++)
     {
-        for (var i = 0 ; i < map.length; i++)
+        if (map[i].coll == 1)
         {
-            var xWhereToStartClipping = 0;
-            var yWhereToStartClipping = getImagePlaceOnSprite(map[i].type);
-            var clippedImageWidth = CELL_SIZE;
-            var clippedImageHeight = CELL_SIZE;
-            var xWhereToPlaceImage = map[i].x * CELL_SIZE;
-            var yWhereToPlaceImage = map[i].y * CELL_SIZE;
-            var imageWidth = CELL_SIZE;
-            var imageHeight = CELL_SIZE;
-            // Iterate through all values of array 'map' and depending on the coordinates we need to draw a fragment
-            ctx.drawImage
-            (
-                pic,
-                xWhereToStartClipping,
-                yWhereToStartClipping,
-                clippedImageWidth,
-                clippedImageHeight,
-                xWhereToPlaceImage,
-                yWhereToPlaceImage,
-                imageWidth,
-                imageHeight
-            );
+            coll_map.push(map[i]);
         }
     }
+}
+
+function drawScene(ctx)
+{
+    map = [];
+    coll_map = [];
+    drawGround(ctx);
+    drawAllObjects(ctx);
+    for (var i = 0 ; i < map.length; i++)
+    {
+        var xWhereToStartClipping = 0;
+        var yWhereToStartClipping = getImagePlaceOnSprite(map[i].type);
+        var clippedImageWidth = CELL_SIZE;
+        var clippedImageHeight = CELL_SIZE;
+        var xWhereToPlaceImage = map[i].x;
+        var yWhereToPlaceImage = map[i].y;
+        var imageWidth = CELL_SIZE;
+        var imageHeight = CELL_SIZE;
+        // Iterate through all values of array 'map' and depending on the coordinates we need to draw a fragment
+        ctx.drawImage
+        (
+            pic,
+            xWhereToStartClipping,
+            yWhereToStartClipping,
+            clippedImageWidth,
+            clippedImageHeight,
+            xWhereToPlaceImage,
+            yWhereToPlaceImage,
+            imageWidth,
+            imageHeight
+        );
+    }
+    getCollObjects();
 }
