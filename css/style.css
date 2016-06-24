@@ -1,3 +1,9 @@
+@font-face
+{
+font-family: SuperMarioBros;
+src: url(fonts/SuperMarioBros.ttf);
+}
+
 html
 {
     margin: 0;
@@ -16,4 +22,13 @@ body
     padding: 0;
     line-height: 1;
     position: relative;
+}
+
+#gameOver
+{
+    font: bold 100px SuperMarioBros, Arial, Verdana;
+    text-transform: uppercase;
+    position: absolute;
+    top: 0px;
+    left: 380px;
 }

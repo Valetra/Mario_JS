@@ -1,26 +1,32 @@
-function drawBackGround(ctx)
+function render()
 {
-    ctx.fillStyle = BACKGROUND_COLOR;
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    drawBackground();
+    drawScene();
 }
 
-function getCollObjects()
+function drawBackground()
 {
-    for(var i = 0; i < map.length; i++)
+    g_ctx.fillStyle = BACKGROUND_COLOR;
+    g_ctx.fillRect(0, 0, canvas.width, canvas.height);
+}
+
+function generateCollMap()
+{
+    render();
+    for (var i = 0; i < map.length; i++)
     {
         if (map[i].coll == 1)
         {
-            coll_map.push(map[i]);
+            g_coll_map.push(map[i]);
         }
     }
 }
 
-function drawScene(ctx)
+function drawScene()
 {
     map = [];
-    coll_map = [];
-    drawGround(ctx);
-    drawAllObjects(ctx);
+    drawGround();
+    drawAllObjects();
     for (var i = 0 ; i < map.length; i++)
     {
         var xWhereToStartClipping = 0;
@@ -32,7 +38,7 @@ function drawScene(ctx)
         var imageWidth = CELL_SIZE;
         var imageHeight = CELL_SIZE;
         // Iterate through all values of array 'map' and depending on the coordinates we need to draw a fragment
-        ctx.drawImage
+        g_ctx.drawImage
         (
             pic,
             xWhereToStartClipping,
@@ -45,5 +51,4 @@ function drawScene(ctx)
             imageHeight
         );
     }
-    getCollObjects();
 }
