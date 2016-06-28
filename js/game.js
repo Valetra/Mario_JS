@@ -1,9 +1,24 @@
+function drawGame() //game loop
+{
+    initEnemies(array_of_enemies_position);
+    scroller(canvas);
+    render();
+    update(g_player);
+    window.requestAnimationFrame(drawGame);
+}
+
 function init()
 {
     initPlayer();
     initCollMap();
+    initFirstTwoEnemies();
 }
 
+function initFirstTwoEnemies()
+{
+    g_enemies_array.push(new Enemy(g_ctx, array_of_enemies_position[0].x, array_of_enemies_position[0].y, pic));
+    g_enemies_array.push(new Enemy(g_ctx, array_of_enemies_position[1].x, array_of_enemies_position[1].y, pic));
+}
 var scrollSum = 0;
 
 function scroller(canvas)
@@ -15,35 +30,33 @@ function scroller(canvas)
     }
 }
 
-var enemy1 = true;
-var enemy2 = true;
-var enemy3 = true;
-var enemy4 = true;
-var enemy5 = true;
-var enemy6 = true;
-var enemy7 = true;
-var enemy8 = true;
-var enemy9 = true;
+var array_of_enemies_position =
+    [
+        {showed: true, x: 700,  y: GROUND_LINE},
+        {showed: true, x: 1000, y: GROUND_LINE},
+        {showed: false, x: 1370, y: GROUND_LINE},
+        {showed: false, x: 1410, y: GROUND_LINE},
+        {showed: false, x: 2600, y: 117},
+        {showed: false, x: 2650, y: 117},
+        {showed: false, x: 3000, y: GROUND_LINE},
+        {showed: false, x: 3100, y: GROUND_LINE},
+        {showed: false, x: 3800, y: GROUND_LINE},
+        {showed: false, x: 3850, y: GROUND_LINE},
+        {showed: false, x: 4000, y: GROUND_LINE},
+        {showed: false, x: 5500, y: GROUND_LINE},
+        {showed: false, x: 5550, y: GROUND_LINE},
+    ];
 
-POS_OF_ENEMY_1_X = 700;
-
-POS_OF_ENEMY_2 = 1376;
-
-function initEnemies()
+function initEnemies(array_of_enemies_position)
 {
-    if (g_player.x > 0 && enemy1)
+    for (var i = 0; i < array_of_enemies_position.length; i++)
     {
-        g_enemies_array.push(new Enemy(g_ctx, 700, GROUND_LINE, pic));
-        enemy1 = false;
+        if (g_player.x >= array_of_enemies_position[i].x - SCREEN_HALF && !array_of_enemies_position[i].showed)
+        {
+            g_enemies_array.push(new Enemy(g_ctx, array_of_enemies_position[i].x, array_of_enemies_position[i].y, pic));
+            array_of_enemies_position[i].showed = true;
+        }
     }
-    if (g_player.x > POS_OF_ENEMY_2 - (screen.width / 2) && enemy2)
-    {
-        g_enemies_array.push(new Enemy(g_ctx, POS_OF_ENEMY_2, 383, pic));
-        enemy2 = false
-    }
-   /* g_enemies_array.push(new Enemy(g_ctx, 1616, 383, pic));
-    g_enemies_array.push(new Enemy(g_ctx, 1670, 383, pic));
-    g_enemies_array.push(new Enemy(g_ctx, 200, 200, pic));*/
 }
 
 function initPlayer()

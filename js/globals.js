@@ -1,4 +1,5 @@
-var g_lives = 3;
+var g_ctx = null;
+var g_player = null;
 var g_upKeyDown = false;
 var g_rightKeyDown = false;
 var g_downKeyDown = false;

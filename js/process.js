@@ -3,8 +3,27 @@ var isRightCollision;
 var isDownCollision;
 var isLeftCollision;
 
+function processingKeystrokes()
+{
+    window.addEventListener('keydown', function()
+    {
+        keyDown(event.keyCode, g_player);
+    });
+    window.addEventListener('keyup', function()
+    {
+        keyUp(event.keyCode, g_player);
+    });
+}
+
 function update(player)
 {
+    for (var i = 0; i < g_enemies_array.length; i++)
+    {
+        updateEnemies(g_enemies_array[i]);
+        g_enemies_array[i].x += g_enemies_array[i].vx;
+        g_enemies_array[i].draw();
+    }
+    processingKeystrokes();
     upCollision = collision(player, UP, g_coll_map);
     rightCollision = collision(player, RIGHT, g_coll_map);
     downCollision = collision(player, DOWN, g_coll_map);
@@ -22,15 +41,6 @@ function update(player)
     }
 }
 
-function leftScreenCollision()
-{
-    var lastPosX = g_player.x;
-    if (g_player.x <= scrollSum)
-    {
-        g_player.x = lastPosX;
-    }
-}
-
 function tryToKillEnemy(player)
 {
     var result = collision(player, DOWN, g_enemies_array);
@@ -38,11 +48,10 @@ function tryToKillEnemy(player)
     {
         g_enemies_array[result.pos].die();
         g_player.vy = 0;
-        g_player.vy -= 3;
+        g_player.vy -= 5;
         setTimeout(function() {
             g_enemies_array.splice(result.pos, 1);
-        },500);
-
+        },100);
     }
 }
 
@@ -53,6 +62,10 @@ function tryToDie(player)
         player.die();
         var element = document.getElementById('gameOver');
         element.innerHTML = 'game over';
+    }
+    if (g_player.y > 700)
+    {
+        player.die();
     }
 }
 
@@ -94,7 +107,7 @@ function processKeys(player)
     }
 }
 
-function sitting(player)
+function sitting(player)//Пока не используется
 {
     player.sit = g_downKeyDown;
 }

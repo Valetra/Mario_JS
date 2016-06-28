@@ -8,16 +8,24 @@ function Enemy(g_ctx, x, y, pic)
     this.y = y;
     this.showing = true;
     this.setEnemyImage = function() {
-        setInterval(function() {
-            if (this.enemyImg == ENEMY_GOOMBA_L)
+        var self = this;
+        var timerId = setInterval(function() {
+            if (!self.alive)
             {
-                this.enemyImg = ENEMY_GOOMBA_R;
+                clearInterval(timerId);
             }
             else
             {
-                this.enemyImg = ENEMY_GOOMBA_L;
+                if (self.enemyImg == ENEMY_GOOMBA_L)
+                {
+                    self.enemyImg = ENEMY_GOOMBA_R;
+                }
+                else
+                {
+                    self.enemyImg = ENEMY_GOOMBA_L;
+                }
             }
-        }, 250);
+        }, 150);
     }
     this.die = function() {
         this.alive = false;
@@ -45,6 +53,7 @@ function Enemy(g_ctx, x, y, pic)
             );
         }
     }
+    this.setEnemyImage();
 }
 
 function updateEnemies(enemy)

@@ -29,6 +29,6 @@ span
     font: bold 100px SuperMarioBros, Arial, Verdana;
     text-transform: uppercase;
     position: absolute;
-    top: 0px;
-    left: 380px;
+    margin-top: 20px;
+/*    margin-left: -scrollSum;*/
 }

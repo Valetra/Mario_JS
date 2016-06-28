@@ -5,12 +5,12 @@ CELLS_COUNT_Y =              32;
 PATH_TO_SPRITE =             'img/marioBigSprite.png';
 BACKGROUND_COLOR =           '#5c94fc';
 MARIO_OFFSET =               0.1;
-START_POSITION_OF_MARIO_X =  62;
-START_POSITION_OF_MARIO_Y =  100;
-START_ENEMY_POS_X =          500;
-START_ENEMY_POS_Y =          383;
-CONVERT_TO_SEC =             1000;
 GROUND_LINE =                383;
+START_POSITION_OF_MARIO_X =  62;
+START_POSITION_OF_MARIO_Y =  GROUND_LINE;
+CONVERT_TO_SEC =             1000;
+SCREEN_HALF = screen.width / 2;
+
 
 //Strings of collision function
 UP =                         'up';

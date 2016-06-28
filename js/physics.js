@@ -59,6 +59,16 @@ function collision(object, side, map)
     }
 }
 
+function leftScreenCollision()
+{
+    var lastPosX = g_player.x;
+    if (g_player.x <= scrollSum)
+    {
+        g_player.x = lastPosX;
+        g_player.vx = 0;
+    }
+}
+
 function brakingDistance(player)
 {
     if ((!g_rightKeyDown) && (!g_leftKeyDown) && !rightCollision.coll && !leftCollision.coll && g_player.x >= scrollSum)

@@ -14,7 +14,6 @@ function Player(g_ctx, x, y, pic)
         this.playerImg = DEAD_MARIO;
         this.vy = 0;
         this.vy += -3;
-        g_lives -= 1;
     }
     this.draw = function() {
         if (this.alive)
@@ -44,16 +43,4 @@ function Player(g_ctx, x, y, pic)
             );
         }
     }
-}
-
-function processingKeystrokes()
-{
-    window.addEventListener('keydown', function()
-    {
-        keyDown(event.keyCode, g_player);
-    });
-    window.addEventListener('keyup', function()
-    {
-        keyUp(event.keyCode, g_player);
-    });
 }

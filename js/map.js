@@ -2,6 +2,7 @@ function render()
 {
     drawBackground();
     drawScene();
+    g_player.draw();
 }
 
 function drawBackground()
