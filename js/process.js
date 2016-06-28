@@ -1,96 +1,58 @@
-function collision(object, side, map)
-{
-    var func = getSideFunc(side);
-    var result = false;
-
-    for (var i = 0; i < map.length; i ++)
-    {
-        if (func(i, object.x, object.y, object.vy))
-        {
-            if (func == isUpCollide)
-            {
-                object.y = map[i].y + CELL_SIZE;
-            }
-            else if (func == isDownCollide)
-            {
-                object.y = map[i].y - CELL_SIZE;
-            }
-            result = true;
-            break;
-        }
-    }
-    return result;
-
-    function isLeftCollide(i, x, y, vy)
-    {
-        return ((x > map[i].x) && (x < map[i].x + CELL_SIZE) &&
-                ((y + CELL_SIZE > map[i].y && y < map[i].y + CELL_SIZE)));
-    }
-
-    function isRightCollide(i, x, y, vy)
-    {
-        return ((x + CELL_SIZE > map[i].x) && (x < map[i].x) &&
-                ((y + CELL_SIZE > map[i].y && y < map[i].y + CELL_SIZE)));
-    }
-
-    function isUpCollide(i, x, y, vy)
-    {
-        return ((x + CELL_SIZE > map[i].x && x < map[i].x + CELL_SIZE) &&
-                (y - EPSILON + vy < map[i].y + CELL_SIZE ) && (y > map[i].y))
-    }
-
-    function isDownCollide(i, x, y, vy)
-    {
-        return ((y + CELL_SIZE + vy + EPSILON > map[i].y) && (y < map[i].y) &&
-                ((x + CELL_SIZE > map[i].x && x < map[i].x + CELL_SIZE)));
-    }
-
-    function getSideFunc(side)
-    {
-        var result;
-        switch (side)
-        {
-            case UP:
-                result = isUpCollide;
-                break;
-            case RIGHT:
-                result = isRightCollide;
-                break;
-            case DOWN:
-                result = isDownCollide;
-                break;
-            case LEFT:
-                result = isLeftCollide;
-                break;
-        }
-        return result;
-    }
-}
+var isUpCollision;
+var isRightCollision;
+var isDownCollision;
+var isLeftCollision;
 
 function update(player)
 {
+    upCollision = collision(player, UP, g_coll_map);
+    rightCollision = collision(player, RIGHT, g_coll_map);
+    downCollision = collision(player, DOWN, g_coll_map);
+    leftCollision = collision(player, LEFT, g_coll_map);
     gravityProcess(player);
     if (player.alive)
     {
         tryToKillEnemy(player);
+        tryToDie(player);
         processKeys(player);
+        leftScreenCollision();
         resetSpeed(player);
         sitting(player);
         brakingDistance(player);
     }
 }
 
+function leftScreenCollision()
+{
+    var lastPosX = g_player.x;
+    if (g_player.x <= scrollSum)
+    {
+        g_player.x = lastPosX;
+    }
+}
+
 function tryToKillEnemy(player)
 {
-    if (collision(player, UP, g_enemies_array) || collision(player, RIGHT, g_enemies_array) || collision(player, LEFT, g_enemies_array))
+    var result = collision(player, DOWN, g_enemies_array);
+    if (result.coll && g_enemies_array[result.pos].alive)
+    {
+        g_enemies_array[result.pos].die();
+        g_player.vy = 0;
+        g_player.vy -= 3;
+        setTimeout(function() {
+            g_enemies_array.splice(result.pos, 1);
+        },500);
+
+    }
+}
+
+function tryToDie(player)
+{
+    if (collision(player, UP, g_enemies_array).coll || collision(player, RIGHT, g_enemies_array).coll || collision(player, LEFT, g_enemies_array).coll)
     {
         player.die();
         var element = document.getElementById('gameOver');
         element.innerHTML = 'game over';
-    }
-    else if (collision(player, DOWN, g_enemies_array))
-    {
-        g_enemy.die();
     }
 }
 
@@ -110,7 +72,7 @@ function processKeys(player)
     }
     if (g_rightKeyDown)
     {
-        if (!collision(player, RIGHT, g_coll_map))
+        if (!rightCollision.coll)
         {
             if (player.vx < MAX_SPEED)
             {
@@ -121,7 +83,7 @@ function processKeys(player)
     }
     else if (g_leftKeyDown)
     {
-        if (!collision(player, LEFT, g_coll_map))
+        if (!leftCollision.coll && g_player.x >= scrollSum)
         {
             if (player.vx > -MAX_SPEED)
             {
@@ -135,48 +97,4 @@ function processKeys(player)
 function sitting(player)
 {
     player.sit = g_downKeyDown;
-}
-
-function brakingDistance(player)
-{
-    if ((!g_rightKeyDown) && (!g_leftKeyDown) && !collision(player, RIGHT, g_coll_map) && !collision(player, LEFT, g_coll_map))
-    {
-        if (Math.floor(player.vx) != 0)
-        {
-            player.vx = (player.vx > 0) ? player.vx - STOP_PATH: player.vx + STOP_PATH;
-            player.x += player.vx;
-        }
-        else
-        {
-            player.vx = 0;
-        }
-    }
-}
-
-function resetSpeed(player)
-{
-    if (collision(player, LEFT, g_coll_map) || collision(player, RIGHT, g_coll_map))
-    {
-        player.vx = 0;
-    }
-    if (collision(player, UP, g_coll_map) || collision(player, DOWN, g_coll_map))
-    {
-        player.vy = 0;
-    }
-}
-
-function gravityProcess(player)
-{
-    if (!player.alive || !collision(player, DOWN, g_coll_map))
-    {
-        player.jump = true;
-        player.vy += GRAVITY;
-        player.y += player.vy;
-    }
-    else if (collision(player, DOWN, g_coll_map))
-    {
-        setTimeout(function(){
-            player.jump = false;
-        }, WAITING_BEFORE_JUMP);
-    }
 }

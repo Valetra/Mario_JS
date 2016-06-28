@@ -1,5 +1,4 @@
-var canvas = document.getElementById("canvas");
-var g_ctx = canvas.getContext('2d');
+var g_lives = 3;
 var g_upKeyDown = false;
 var g_rightKeyDown = false;
 var g_downKeyDown = false;

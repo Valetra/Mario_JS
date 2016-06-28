@@ -1,22 +1,31 @@
-var g_player = new Player(g_ctx, START_POSITION_OF_MARIO_X, START_POSITION_OF_MARIO_Y, pic);
-var g_enemy = new Enemy(g_ctx, START_ENEMY_POS_X, START_ENEMY_POS_Y, pic);
+var g_ctx = null;
+var g_player = null;
 
 function start()
 {
+    var canvas = document.getElementById("canvas");
     canvas.width  = CELLS_COUNT_X * CELL_SIZE;
     canvas.height = CELLS_COUNT_Y * CELL_SIZE;
-    generateCollMap();
+    g_ctx = canvas.getContext('2d');
+    init();
 
     function drawGame() //game loop
     {
+        initEnemies();
+        scroller(canvas);
         render();
         update(g_player);
-        updateEnemy(g_enemy);
-        g_enemy.x += g_enemy.vx;
         g_player.draw();
-        g_enemy.draw();
+        for (var i = 0; i < g_enemies_array.length; i++)
+        {
+            updateEnemies(g_enemies_array[i]);
+            g_enemies_array[i].x += g_enemies_array[i].vx;
+            g_enemies_array[i].draw();
+        }
         window.requestAnimationFrame(drawGame);
     }
+
     processingKeystrokes();
     drawGame();
 }
+start();

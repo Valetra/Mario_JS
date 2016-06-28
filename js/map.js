@@ -22,11 +22,19 @@ function generateCollMap()
     }
 }
 
+function drawObjects()
+{
+    for (var i = 0; i < g_arrayOfObjects.length; i++)
+    {
+        drawGameObjects(g_arrayOfObjects[i].type, g_arrayOfObjects[i].x, g_arrayOfObjects[i].y);
+    }
+}
+
 function drawScene()
 {
     map = [];
     drawGround();
-    drawAllObjects();
+    drawObjects();
     for (var i = 0 ; i < map.length; i++)
     {
         var xWhereToStartClipping = 0;
