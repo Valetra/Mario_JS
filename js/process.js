@@ -42,7 +42,6 @@ function update(player)
 {
     pushEnemies();
     showVictoriousScreen(player);
-
     upCollision = collision(player, UP, coll_map);
     rightCollision = collision(player, RIGHT, coll_map);
     downCollision = collision(player, DOWN, coll_map);
@@ -61,10 +60,32 @@ function update(player)
     }
 }
 
+function updateTime(player)
+{
+    var timer = document.getElementById("timer");
+    timer.innerHTML = 'Time: ' + g_timer;
+    var refreshIntervalId = setInterval(function(){
+        g_timer -= 1;
+        timer.innerHTML = 'Time: ' + g_timer;
+        if (g_timer <= HURRY_TIME)
+        {
+            var hurryMusic = document.getElementById("hurry");
+            mainMusic.pause();
+            hurryMusic.play();
+        }
+        if (g_timer <= 0)
+        {
+            hurryMusic.pause();
+            player.die();
+            clearInterval(refreshIntervalId);
+        }
+    }, CHANGE_TIME_MS);
+}
+
 function updateScore()
 {
     var score = document.getElementById("score");
-    score.innerHTML = 'score: ' + g_score;
+    score.innerHTML = 'Score: ' + g_score;
 }
 
 function tryToKillEnemy(player)
@@ -73,13 +94,12 @@ function tryToKillEnemy(player)
     var result = collision(player, DOWN, g_enemies_array);
     if (result.coll && g_enemies_array[result.pos].alive)
     {
-        console.log('KILL', player.alive);
         g_enemies_array[result.pos].die();
         player.speedY = 0;
-        player.speedY -= 5;
+        player.speedY -= DROP;
         setTimeout(function() {
             g_enemies_array.splice(result.pos, 1);
-        }, 100);
+        }, WAIT_TO_DEL_ENEMY);
     }
 }
 
@@ -87,7 +107,6 @@ function tryToDie(player)
 {
     if (collision(player, UP, g_enemies_array).coll || collision(player, RIGHT, g_enemies_array).coll || collision(player, LEFT, g_enemies_array).coll)
     {
-        console.log('DIE ', player.alive);
         player.die();
     }
     if (player.y > (BOTTOM_DEATH * screen.height))

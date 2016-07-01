@@ -32,10 +32,18 @@ span
     top: 50px;
 }
 
-ol
+#score
 {
     font: bold 20px SuperPlumberBros, Arial, Verdana;
     position: fixed;
-    left: 500px;
+    left: 700px;
+    top: 0px;
+}
+
+#timer
+{
+    font: bold 20px SuperPlumberBros, Arial, Verdana;
+    position: fixed;
+    left: 250px;
     top: 0px;
 }

@@ -14,7 +14,7 @@ function Player(ctx, x, y, pic)
         this.alive = false;
         this.playerImg = DEAD_MARIO;
         this.speedY = 0;
-        this.speedY += -8;
+        this.speedY += DIE_JUMP;
         mainMusic.pause();
         var element = document.getElementById('end');
         element.innerHTML = 'game over';
@@ -27,7 +27,7 @@ function Player(ctx, x, y, pic)
     }
     this.win = function() {
         this.gameEnd = true;
-        this.speedX = 3;
+        this.speedX = WIN_PLAYER_SPEED;
         mainMusic.pause();
         var winMusic = document.getElementById("levelComplite");
         winMusic.play();

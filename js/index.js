@@ -8,6 +8,7 @@ function start(ctx, pic, arrayOfEnemiesPosition, coll_map)
     player = initPlayer(player, ctx, pic);
     init(player, ctx, arrayOfEnemiesPosition, pic, coll_map);
     processingKeystrokes(player);
+    updateTime(player);
     drawGame(player, canvas, arrayOfEnemiesPosition, ctx, pic, coll_map);
 }
 start(ctx, pic, arrayOfEnemiesPosition, coll_map);

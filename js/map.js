@@ -68,9 +68,6 @@ function drawScene(ctx, pic)
     drawCastle(ctx);
 }
 
-var CastlePic = new Image();
-CastlePic.src = PATH_TO_CASTLE_IMG;
-
 function drawCastle(ctx)
 {
     ctx.drawImage

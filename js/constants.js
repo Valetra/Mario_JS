@@ -13,6 +13,12 @@ PATH_TO_CASTLE_IMG =         'img/castle.png';
 END_POS_OF_PLAYER =          6624;
 WIN_POS =                    6240;
 BOTTOM_DEATH =               4/5;
+HURRY_TIME =                 100;
+CHANGE_TIME_MS =             500;
+WAIT_TO_DEL_ENEMY =          100;
+DIE_JUMP =                   -8;
+WIN_PLAYER_SPEED =           3;
+REWARD_FOR_KILL_ENEMY =      100;
 
 //Strings of collision function
 UP =                         'up';
@@ -27,6 +33,9 @@ MAX_JUMP =                   -10.9;
 STOP_PATH =                  0.3;
 EPSILON =                    1;
 WAITING_BEFORE_JUMP =        100;
+EPSILON_2 =                  5;
+EPSILON_3 =                  31;
+DROP =                       5;
 
 //Keyboards
 LEFT_ARROW =                 37;

@@ -32,7 +32,7 @@ function Enemy(ctx, x, y, pic)
         this.alive = false;
         this.speedX = 0;
         this.enemyImg = DEAD_ENEMY_GOOMBA;
-        g_score += 100;
+        g_score += REWARD_FOR_KILL_ENEMY;
     }
     this.draw = function() {
         if (this.showing)

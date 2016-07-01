@@ -32,8 +32,6 @@ function initEnemies(arrayOfEnemiesPosition, player, ctx, pic)
     }
 }
 
-var scrollSum = 0;
-
 function scroller(canvas, player)
 {
     if (player.x < END_OF_MAP - screen.width / 2)

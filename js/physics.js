@@ -89,12 +89,12 @@ function resetSpeed(player)
 {
     if (leftCollision.coll)
     {
-        player.x = coll_map[leftCollision.pos].x + CELL_SIZE + 5;
+        player.x = coll_map[leftCollision.pos].x + CELL_SIZE + EPSILON_2;
         player.speedX = 0;
     }
     if (rightCollision.coll)
     {
-        player.x = coll_map[rightCollision.pos].x - CELL_SIZE - 5;
+        player.x = coll_map[rightCollision.pos].x - CELL_SIZE - EPSILON_2;
         player.speedX = 0;
     }
     if (upCollision.coll)
@@ -104,7 +104,7 @@ function resetSpeed(player)
     }
     if (downCollision.coll && !g_upKeyDown)
     {
-        player.y = coll_map[downCollision.pos].y - (EPSILON * 31);
+        player.y = coll_map[downCollision.pos].y - EPSILON_3;
         player.y -= EPSILON;
         if (player.alive)
         {
