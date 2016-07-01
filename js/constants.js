@@ -2,15 +2,17 @@
 CELL_SIZE =                  32;
 CELLS_COUNT_X =              220;
 CELLS_COUNT_Y =              32;
+END_OF_MAP =                 CELL_SIZE * CELLS_COUNT_X;
 PATH_TO_SPRITE =             'img/marioBigSprite.png';
-BACKGROUND_COLOR =           '#5c94fc';
 MARIO_OFFSET =               0.1;
 GROUND_LINE =                383;
 START_POSITION_OF_MARIO_X =  62;
 START_POSITION_OF_MARIO_Y =  GROUND_LINE;
 CONVERT_TO_SEC =             1000;
-SCREEN_HALF = screen.width / 2;
-
+PATH_TO_CASTLE_IMG =         'img/castle.png';
+END_POS_OF_PLAYER =          6624;
+WIN_POS =                    6240;
+BOTTOM_DEATH =               4/5;
 
 //Strings of collision function
 UP =                         'up';

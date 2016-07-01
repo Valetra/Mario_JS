@@ -1,21 +1,20 @@
-function Enemy(g_ctx, x, y, pic)
+function Enemy(ctx, x, y, pic)
 {
     this.alive = true;
     this.enemyImg = ENEMY_GOOMBA_L;
-    this.vx = -1;
-    this.vy = 0;
+    this.speedX = -1;
+    this.speedY = 0;
     this.x = x;
     this.y = y;
     this.showing = true;
-    this.setEnemyImage = function() {
+    this.changeEnemyImage = function() {
         var self = this;
-        var timerId = setInterval(function() {
-            if (!self.alive)
-            {
-                clearInterval(timerId);
-            }
-            else
-            {
+        animate({
+            duration: 1000,
+            timing: function(timeFraction) {
+                return timeFraction;
+            },
+            draw: function(progress) {
                 if (self.enemyImg == ENEMY_GOOMBA_L)
                 {
                     self.enemyImg = ENEMY_GOOMBA_R;
@@ -25,21 +24,20 @@ function Enemy(g_ctx, x, y, pic)
                     self.enemyImg = ENEMY_GOOMBA_L;
                 }
             }
-        }, 150);
+        });
     }
     this.die = function() {
+        var kickSound = document.getElementById("kick");
+        kickSound.play();
         this.alive = false;
-        this.vx = 0;
+        this.speedX = 0;
         this.enemyImg = DEAD_ENEMY_GOOMBA;
-        var self = this;
-        setTimeout(function() {
-            self.showing = false;
-        }, 500);
+        g_score += 100;
     }
     this.draw = function() {
         if (this.showing)
         {
-            g_ctx.drawImage
+            ctx.drawImage
             (
                 pic,
                 0,
@@ -53,23 +51,5 @@ function Enemy(g_ctx, x, y, pic)
             );
         }
     }
-    this.setEnemyImage();
+    this.changeEnemyImage();
 }
-
-function updateEnemies(enemy)
-{
-    if (collision(enemy, DOWN, g_coll_map).coll)
-    {
-        enemy.vy = 0;
-    }
-    else
-    {
-        enemy.vy += GRAVITY;
-    }
-    enemy.y += enemy.vy;
-    if(collision(enemy, LEFT, g_coll_map).coll || collision(enemy, RIGHT, g_coll_map).coll || collision(enemy, LEFT, g_enemies_array).coll || collision(enemy, RIGHT, g_enemies_array).coll)
-    {
-        enemy.vx = - enemy.vx;
-    }
-}
-

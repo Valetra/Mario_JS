@@ -1,41 +1,38 @@
-function render()
+function render(player, ctx, pic)
 {
-    drawBackground();
-    drawScene();
-    g_player.draw();
+    drawBackground(ctx);
+    drawScene(ctx, pic);
+    player.draw(ctx);
 }
 
-function drawBackground()
+function drawBackground(ctx)
 {
-    g_ctx.fillStyle = BACKGROUND_COLOR;
-    g_ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = BACKGROUND_COLOR;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
-function generateCollMap()
+function generateCollMap(player, ctx, pic, coll_map)
 {
-    render();
+    render(player, ctx, pic);
     for (var i = 0; i < map.length; i++)
     {
         if (map[i].coll == 1)
         {
-            g_coll_map.push(map[i]);
+            coll_map.push(map[i]);
         }
     }
 }
 
-function drawObjects()
+function pushObjects(arrayOfObjects)
 {
-    for (var i = 0; i < g_arrayOfObjects.length; i++)
+    for (var i = 0; i < arrayOfObjects.length; i++)
     {
-        drawGameObjects(g_arrayOfObjects[i].type, g_arrayOfObjects[i].x, g_arrayOfObjects[i].y);
+        drawGameObjects(arrayOfObjects[i].type, arrayOfObjects[i].x, arrayOfObjects[i].y);
     }
 }
 
-function drawScene()
+function drawAll(ctx, pic)
 {
-    map = [];
-    drawGround();
-    drawObjects();
     for (var i = 0 ; i < map.length; i++)
     {
         var xWhereToStartClipping = 0;
@@ -47,7 +44,7 @@ function drawScene()
         var imageWidth = CELL_SIZE;
         var imageHeight = CELL_SIZE;
         // Iterate through all values of array 'map' and depending on the coordinates we need to draw a fragment
-        g_ctx.drawImage
+        ctx.drawImage
         (
             pic,
             xWhereToStartClipping,
@@ -60,4 +57,26 @@ function drawScene()
             imageHeight
         );
     }
+}
+
+function drawScene(ctx, pic)
+{
+    map = [];
+    pushGround();
+    pushObjects(arrayOfObjects);
+    drawAll(ctx, pic);
+    drawCastle(ctx);
+}
+
+var CastlePic = new Image();
+CastlePic.src = PATH_TO_CASTLE_IMG;
+
+function drawCastle(ctx)
+{
+    ctx.drawImage
+        (
+            CastlePic,
+            6560,
+            256
+        );
 }

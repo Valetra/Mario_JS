@@ -1,7 +1,6 @@
-@font-face
-{
-    font-family: SuperMarioBros;
-    src: url(../fonts/SuperMarioBros.ttf);
+@font-face {
+    font-family: SuperPlumberBros;
+    src: url(../fonts/prstartk.ttf);
 }
 
 html
@@ -26,9 +25,17 @@ body
 
 span
 {
-    font: bold 100px SuperMarioBros, Arial, Verdana;
+    font: bold 100px SuperPlumberBros, Arial, Verdana;
     text-transform: uppercase;
-    position: absolute;
-    margin-top: 20px;
-/*    margin-left: -scrollSum;*/
+    position: fixed;
+    left: 300px;
+    top: 50px;
+}
+
+ol
+{
+    font: bold 20px SuperPlumberBros, Arial, Verdana;
+    position: fixed;
+    left: 500px;
+    top: 0px;
 }

@@ -41,3 +41,6 @@ ENEMY_GOOMBA_L =             39;
 ENEMY_GOOMBA_R =             40;
 DEAD_ENEMY_GOOMBA =          41;
 DEAD_MARIO =                 42;
+FLAG =                       43;
+FLAG_TOP =                   44;
+POLE =                       45;

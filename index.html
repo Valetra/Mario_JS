@@ -7,10 +7,30 @@
     <title>Mario</title>
   </head>
   <body>
+    <table>
+      <ol id="score"></ol>
+    </table>
+    <audio id="mainTheme">
+      <source src="music/mainTheme.mp3"/>
+    </audio>
+    <audio id="die">
+      <source src="music/die.mp3"/>
+    </audio>
+    <audio id="kick">
+      <source src="music/kick.mp3"/>
+    </audio>
+    <audio id="levelComplite">
+      <source src="music/levelComplete.mp3"/>
+    </audio>
+    <audio id="jump">
+      <source src="music/jump.mp3"/>
+    </audio>
     <canvas height='1980' width='1080' id='canvas'></canvas>
     <script type="text/javascript" src="js/constants.js"></script>
-    <script type="text/javascript" src="js/sprite_cells_const.js"></script>
     <script type="text/javascript" src="js/globals.js"></script>
+    <script type="text/javascript" src="js/level.js"></script>
+    <script type="text/javascript" src="js/sprite_cells_const.js"></script>
+    <script type="text/javascript" src="js/animate.js"></script>
     <script type="text/javascript" src="js/keys_bind.js"></script>
     <script type="text/javascript" src="js/physics.js"></script>
     <script type="text/javascript" src="js/process.js"></script>
@@ -20,7 +40,7 @@
     <script type="text/javascript" src="js/player.js"></script>
     <script type="text/javascript" src="js/game.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
-    <span id="gameOver"></span>
+    <span id="end"></span>
     <noscript>
       <p>Your browser does not support JavaScript or it is disabled in the browser</p>
     </noscript>

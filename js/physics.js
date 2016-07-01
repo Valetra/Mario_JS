@@ -5,7 +5,7 @@ function collision(object, side, map)
 
     for (var i = 0; i < map.length; i ++)
     {
-        if (func(i, object.x, object.y, object.vx, object.vy))
+        if (func(i, object.x, object.y, object.speedX, object.speedY))
         {
             result = {pos: i, coll: true};
             break;
@@ -13,27 +13,27 @@ function collision(object, side, map)
     }
     return result;
 
-    function isLeftCollide(i, x, y, vx, vy)
+    function isLeftCollide(i, x, y, speedX, speedY)
     {
         return ((x > map[i].x) && (x - 5 < map[i].x + CELL_SIZE) &&
                 ((y + CELL_SIZE > map[i].y && y < map[i].y + CELL_SIZE)));
     }
 
-    function isRightCollide(i, x, y, vx, vy)
+    function isRightCollide(i, x, y, speedX, speedY)
     {
         return ((x + CELL_SIZE + 5 > map[i].x) && (x < map[i].x) &&
                 ((y + CELL_SIZE > map[i].y && y < map[i].y + CELL_SIZE)));
     }
 
-    function isUpCollide(i, x, y, vx, vy)
+    function isUpCollide(i, x, y, speedX, speedY)
     {
         return ((x + CELL_SIZE > map[i].x && x < map[i].x + CELL_SIZE) &&
-                (y - EPSILON + vy < map[i].y + CELL_SIZE ) && (y > map[i].y + CELL_SIZE + vy));
+                (y - EPSILON + speedY < map[i].y + CELL_SIZE ) && (y > map[i].y + CELL_SIZE + speedY));
     }
 
-    function isDownCollide(i, x, y, vx, vy)
+    function isDownCollide(i, x, y, speedX, speedY)
     {
-        return (((y + CELL_SIZE + vy + EPSILON > map[i].y) && (y + CELL_SIZE < map[i].y + vy + EPSILON)) &&
+        return (((y + CELL_SIZE + speedY + EPSILON > map[i].y) && (y + CELL_SIZE < map[i].y + speedY + EPSILON)) &&
                 ((x + CELL_SIZE > map[i].x) && (x < map[i].x + CELL_SIZE)));
     }
 
@@ -59,28 +59,28 @@ function collision(object, side, map)
     }
 }
 
-function leftScreenCollision()
+function leftScreenCollision(player)
 {
-    var lastPosX = g_player.x;
-    if (g_player.x <= scrollSum)
+    var lastPosX = player.x;
+    if (player.x <= scrollSum)
     {
-        g_player.x = lastPosX;
-        g_player.vx = 0;
+        player.x = lastPosX;
+        player.speedX = 0;
     }
 }
 
 function brakingDistance(player)
 {
-    if ((!g_rightKeyDown) && (!g_leftKeyDown) && !rightCollision.coll && !leftCollision.coll && g_player.x >= scrollSum)
+    if ((!g_rightKeyDown) && (!g_leftKeyDown) && !rightCollision.coll && !leftCollision.coll && player.x >= scrollSum)
     {
-        if (Math.floor(player.vx) != 0)
+        if (Math.floor(player.speedX) != 0)
         {
-            player.vx = (player.vx > 0) ? player.vx - STOP_PATH: player.vx + STOP_PATH;
-            player.x += player.vx;
+            player.speedX = (player.speedX > 0) ? player.speedX - STOP_PATH: player.speedX + STOP_PATH;
+            player.x += player.speedX;
         }
         else
         {
-            player.vx = 0;
+            player.speedX = 0;
         }
     }
 }
@@ -89,24 +89,27 @@ function resetSpeed(player)
 {
     if (leftCollision.coll)
     {
-        player.x = g_coll_map[leftCollision.pos].x + CELL_SIZE + 5;
-        player.vx = 0;
+        player.x = coll_map[leftCollision.pos].x + CELL_SIZE + 5;
+        player.speedX = 0;
     }
     if (rightCollision.coll)
     {
-        player.x = g_coll_map[rightCollision.pos].x - CELL_SIZE - 5;
-        player.vx = 0;
+        player.x = coll_map[rightCollision.pos].x - CELL_SIZE - 5;
+        player.speedX = 0;
     }
     if (upCollision.coll)
     {
-        player.y -= player.vy;
-        player.vy = 0;
+        player.y -= player.speedY;
+        player.speedY = 0;
     }
     if (downCollision.coll && !g_upKeyDown)
     {
-        player.y = g_coll_map[downCollision.pos].y - (EPSILON * 31);
+        player.y = coll_map[downCollision.pos].y - (EPSILON * 31);
         player.y -= EPSILON;
-        player.vy = 0;
+        if (player.alive)
+        {
+            player.speedY = 0;
+        }
     }
 }
 
@@ -115,8 +118,8 @@ function gravityProcess(player)
     if (!player.alive || !downCollision.coll)
     {
         player.jump = true;
-        player.vy += GRAVITY;
-        player.y += player.vy;
+        player.speedY += GRAVITY;
+        player.y += player.speedY;
     }
     else if (downCollision.coll)
     {
