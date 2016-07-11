@@ -1,15 +1,22 @@
-function animate(options) {
-    var start = performance.now();
-    var requestId =  requestAnimationFrame(function animate(time) {
-        // timeFraction от 0 до 1
-        var timeFraction = (time - start) / options.duration;
-        //if (timeFraction > 1) timeFraction = 0;
-        // текущее состояние анимации
-        var progress = options.timing(timeFraction);
-        options.draw(progress);
-        if (timeFraction > 1)
+function setIntervalForAnimation(callback, delay)
+{
+    var now;
+    var delta;
+    var interval;
+    var then = new Date().getTime();
+    
+    return (function loop(time)
+    {
+        var animationFrame = requestAnimationFrame(loop);
+        
+        interval = delay;
+        now = new Date().getTime();
+        delta = now - then;
+        
+        if (delta > interval)
         {
-            requestAnimationFrame(animate);
+            then = now - (delta %interval);
+            callback(animationFrame);
         }
-  });
+    }());
 }

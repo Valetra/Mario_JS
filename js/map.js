@@ -59,6 +59,8 @@ function drawAll(ctx, pic)
     }
 }
 
+
+
 function drawScene(ctx, pic)
 {
     map = [];

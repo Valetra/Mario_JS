@@ -15,13 +15,13 @@ function collision(object, side, map)
 
     function isLeftCollide(i, x, y, speedX, speedY)
     {
-        return ((x > map[i].x) && (x - 5 < map[i].x + CELL_SIZE) &&
+        return ((x > map[i].x) && (x - EPSILON_2 < map[i].x + CELL_SIZE) &&
                 ((y + CELL_SIZE > map[i].y && y < map[i].y + CELL_SIZE)));
     }
 
     function isRightCollide(i, x, y, speedX, speedY)
     {
-        return ((x + CELL_SIZE + 5 > map[i].x) && (x < map[i].x) &&
+        return ((x + CELL_SIZE + EPSILON_2 > map[i].x) && (x < map[i].x) &&
                 ((y + CELL_SIZE > map[i].y && y < map[i].y + CELL_SIZE)));
     }
 
@@ -123,8 +123,6 @@ function gravityProcess(player)
     }
     else if (downCollision.coll)
     {
-        setTimeout(function() {
-            player.jump = false;
-        }, WAITING_BEFORE_JUMP);
+        player.jump = false;
     }
 }

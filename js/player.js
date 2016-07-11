@@ -23,7 +23,6 @@ function Player(ctx, x, y, pic)
             var dieMusic = document.getElementById("die");
             dieMusic.play();
         }
-
     }
     this.win = function() {
         this.gameEnd = true;
@@ -38,18 +37,141 @@ function Player(ctx, x, y, pic)
             this.showing = false;
         }
     }
-    this.draw = function() {
-        if (this.alive)
+    var self = this;
+    this.changePlayerImg = function()
+    {
+        setIntervalForAnimation(function(animationFrame)
         {
-            if (Math.floor(this.speedX) > 0)
+            if (self.speedX > 0 && !self.jump)
             {
-                this.playerImg = MARIO_R;
+                if (self.playerImg == MARIO_R ||
+                    self.playerImg == JUMP_MARIO_L ||
+                    self.playerImg == JUMP_MARIO_R ||
+                    self.playerImg == MARIO_L ||
+                    self.playerImg == MARIO_L1 ||
+                    self.playerImg == MARIO_L2 ||
+                    self.playerImg == MARIO_L3)
+                {
+                    self.playerImg = MARIO_R1;
+                }
+                else if (self.playerImg == MARIO_R1 ||
+                         self.playerImg == JUMP_MARIO_L ||
+                         self.playerImg == JUMP_MARIO_R ||
+                         self.playerImg == MARIO_L ||
+                         self.playerImg == MARIO_L1 ||
+                         self.playerImg == MARIO_L2 ||
+                         self.playerImg == MARIO_L3)
+                {
+                    self.playerImg = MARIO_R2;
+                }
+                else if (self.playerImg == MARIO_R2 ||
+                         self.playerImg == JUMP_MARIO_L ||
+                         self.playerImg == JUMP_MARIO_R ||
+                         self.playerImg == MARIO_L ||
+                         self.playerImg == MARIO_L1 ||
+                         self.playerImg == MARIO_L2 ||
+                         self.playerImg == MARIO_L3)
+                {
+                    self.playerImg = MARIO_R3;
+                }
+                else if (self.playerImg == MARIO_R3 ||
+                         self.playerImg == JUMP_MARIO_L ||
+                         self.playerImg == JUMP_MARIO_R ||
+                         self.playerImg == MARIO_L ||
+                         self.playerImg == MARIO_L1 ||
+                         self.playerImg == MARIO_L2 ||
+                         self.playerImg == MARIO_L3)
+                {
+                    self.playerImg = MARIO_R1;
+                }
             }
-            else if (Math.floor(this.speedX) < 0)
+            if (self.speedX < 0 && !self.jump)
             {
-                this.playerImg = MARIO_L;
+                if (self.playerImg == MARIO_L ||
+                    self.playerImg == JUMP_MARIO_L ||
+                    self.playerImg == JUMP_MARIO_R ||
+                    self.playerImg == MARIO_R ||
+                    self.playerImg == MARIO_R1 ||
+                    self.playerImg == MARIO_R2 ||
+                    self.playerImg == MARIO_R3)
+                {
+                    self.playerImg = MARIO_L1;
+                }
+                else if (self.playerImg == MARIO_L1 ||
+                         self.playerImg == JUMP_MARIO_L ||
+                         self.playerImg == JUMP_MARIO_R ||
+                         self.playerImg == MARIO_R ||
+                         self.playerImg == MARIO_R1 ||
+                         self.playerImg == MARIO_R2 ||
+                         self.playerImg == MARIO_R3)
+                {
+                    self.playerImg = MARIO_L2;
+                }
+                else if (self.playerImg == MARIO_L2 ||
+                         self.playerImg == JUMP_MARIO_L ||
+                         self.playerImg == JUMP_MARIO_R ||
+                         self.playerImg == MARIO_R ||
+                         self.playerImg == MARIO_R1 ||
+                         self.playerImg == MARIO_R2 ||
+                         self.playerImg == MARIO_R3)
+                {
+                    self.playerImg = MARIO_L3;
+                }
+                else if (self.playerImg == MARIO_L3 ||
+                         self.playerImg == JUMP_MARIO_L ||
+                         self.playerImg == JUMP_MARIO_R ||
+                         self.playerImg == MARIO_R ||
+                         self.playerImg == MARIO_R1 ||
+                         self.playerImg == MARIO_R2 ||
+                         self.playerImg == MARIO_R3)
+                {
+                    self.playerImg = MARIO_L1;
+                }
             }
-        }
+            if (self.alive)
+            {
+                if (self.jump && self.speedX > 0)
+                {
+                    self.playerImg = JUMP_MARIO_R;
+                }
+                else if (self.jump && self.speedX < 0)
+                {
+                    self.playerImg = JUMP_MARIO_L;
+                }
+                if (self.jump && self.speedX == 0 && self.playerImg == MARIO_R)
+                {
+                    self.playerImg = JUMP_MARIO_R;
+                }
+                else if (self.jump && self.speedX == 0 && self.playerImg == MARIO_L)
+                {
+                    self.playerImg = JUMP_MARIO_L;
+                }
+                if (self.speedX == 0 && !self.jump)
+                {
+                    if (self.playerImg == MARIO_L1 ||
+                        self.playerImg == MARIO_L2 ||
+                        self.playerImg == MARIO_L3 ||
+                        self.playerImg == JUMP_MARIO_L)
+                    {
+                        self.playerImg = MARIO_L;
+                    }
+                    if (self.playerImg == MARIO_R1 ||
+                        self.playerImg == MARIO_R2 ||
+                        self.playerImg == MARIO_R3 ||
+                        self.playerImg == JUMP_MARIO_R)
+                    {
+                        self.playerImg = MARIO_R;
+                    }
+                }
+            }
+            if (!self.alive)
+            {
+                cancelAnimationFrame(animationFrame);
+            }
+        }, 100);
+    }
+    this.draw = function ()
+    {
         if (this.showing)
         {
             ctx.drawImage
@@ -66,6 +188,7 @@ function Player(ctx, x, y, pic)
             );
         }
     }
+    this.changePlayerImg();
 }
 
 function processingKeystrokes(player)

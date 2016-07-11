@@ -23,6 +23,12 @@ body
     position: relative;
 }
 
+ul
+{
+    margin: 0px;
+    list-style-type: none;
+}
+
 span
 {
     font: bold 100px SuperPlumberBros, Arial, Verdana;
@@ -32,12 +38,21 @@ span
     top: 50px;
 }
 
+.marketing
+{
+    text-transform: uppercase;
+    font: bold 50px SuperPlumberBros, Arial, Verdana;
+    margin: auto;
+    text-align: center;
+    padding-top: 50px;
+}
+
 #score
 {
     font: bold 20px SuperPlumberBros, Arial, Verdana;
     position: fixed;
     left: 700px;
-    top: 0px;
+    top: 15px;
 }
 
 #timer
@@ -45,5 +60,5 @@ span
     font: bold 20px SuperPlumberBros, Arial, Verdana;
     position: fixed;
     left: 250px;
-    top: 0px;
+    top: 15px;
 }

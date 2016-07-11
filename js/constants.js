@@ -1,7 +1,7 @@
 //Configuration
 CELL_SIZE =                  32;
 CELLS_COUNT_X =              220;
-CELLS_COUNT_Y =              32;
+CELLS_COUNT_Y =              16;
 END_OF_MAP =                 CELL_SIZE * CELLS_COUNT_X;
 PATH_TO_SPRITE =             'img/marioBigSprite.png';
 MARIO_OFFSET =               0.1;
@@ -12,7 +12,7 @@ CONVERT_TO_SEC =             1000;
 PATH_TO_CASTLE_IMG =         'img/castle.png';
 END_POS_OF_PLAYER =          6624;
 WIN_POS =                    6240;
-BOTTOM_DEATH =               4/5;
+BOTTOM_DEATH_COEFF =         4.5 / 5;
 HURRY_TIME =                 100;
 CHANGE_TIME_MS =             500;
 WAIT_TO_DEL_ENEMY =          100;

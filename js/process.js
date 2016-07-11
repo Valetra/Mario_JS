@@ -14,7 +14,10 @@ function updateEnemies(enemy)
         enemy.speedY += GRAVITY;
     }
     enemy.y += enemy.speedY;
-    if (collision(enemy, LEFT, coll_map).coll || collision(enemy, RIGHT, coll_map).coll || collision(enemy, LEFT, g_enemies_array).coll || collision(enemy, RIGHT, g_enemies_array).coll)
+    if (collision(enemy, LEFT, coll_map).coll ||
+        collision(enemy, RIGHT, coll_map).coll ||
+        collision(enemy, LEFT, g_enemies_array).coll ||
+        collision(enemy, RIGHT, g_enemies_array).coll)
     {
         enemy.speedX = - enemy.speedX;
     }
@@ -71,12 +74,22 @@ function updateTime(player)
         {
             var hurryMusic = document.getElementById("hurry");
             mainMusic.pause();
-            hurryMusic.play();
+            if (player.alive)
+            {
+                hurryMusic.play();
+            }
+            else
+            {
+                hurryMusic.pause();
+            }
         }
         if (g_timer <= 0)
         {
+            if (player.alive)
+            {
+                player.die();
+            }
             hurryMusic.pause();
-            player.die();
             clearInterval(refreshIntervalId);
         }
     }, CHANGE_TIME_MS);
@@ -105,11 +118,13 @@ function tryToKillEnemy(player)
 
 function tryToDie(player)
 {
-    if (collision(player, UP, g_enemies_array).coll || collision(player, RIGHT, g_enemies_array).coll || collision(player, LEFT, g_enemies_array).coll)
+    if (collision(player, UP, g_enemies_array).coll ||
+        collision(player, RIGHT, g_enemies_array).coll ||
+        collision(player, LEFT, g_enemies_array).coll)
     {
         player.die();
     }
-    if (player.y > (BOTTOM_DEATH * screen.height))
+    if (player.y > (BOTTOM_DEATH_COEFF * canvas.height))
     {
         player.die();
     }

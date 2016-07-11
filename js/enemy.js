@@ -7,26 +7,22 @@ function Enemy(ctx, x, y, pic)
     this.x = x;
     this.y = y;
     this.showing = true;
+    var self = this;
     this.changeEnemyImage = function() {
-        var self = this;
-        animate({
-            duration: 1000,
-            timing: function(timeFraction) {
-                return timeFraction;
-            },
-            draw: function(progress) {
-                if (self.enemyImg == ENEMY_GOOMBA_L)
-                {
-                    self.enemyImg = ENEMY_GOOMBA_R;
-                }
-                else
-                {
-                    self.enemyImg = ENEMY_GOOMBA_L;
-                }
+        setIntervalForAnimation(function(animationFrame)
+        {
+            if (self.enemyImg == ENEMY_GOOMBA_L)
+            {
+                self.enemyImg = ENEMY_GOOMBA_R
             }
-        });
+            else
+            {
+                self.enemyImg = ENEMY_GOOMBA_L
+            }
+        }, 200);
     }
     this.die = function() {
+        this.showing = false;
         var kickSound = document.getElementById("kick");
         kickSound.play();
         this.alive = false;
