@@ -1,0 +1,9 @@
+version: "3"
+
+services:
+    mario:
+        image: nginx
+        ports:
+            - 8003:80
+        volumes:
+            - ./src:/usr/share/nginx/html
