@@ -1,3 +1,4 @@
+//Comment to check can I change git repo
 function drawGame(player, canvas, arrayOfEnemiesPosition, ctx, pic, coll_map) //game loop
 {
     initEnemies(arrayOfEnemiesPosition, player, ctx, pic);
